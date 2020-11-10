@@ -5,7 +5,7 @@ LAN=[]
 for i in range (0,N):
     LAN.append(int(input()))
 
-left=0
+left=1
 right=max(LAN)
 
 while left<=right:
