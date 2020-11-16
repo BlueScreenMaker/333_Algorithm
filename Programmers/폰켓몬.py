@@ -14,4 +14,4 @@ def solution(nums):
     answer = len(catch_list)
     return answer
 
-print(solution([3,1,2,3]))
+print(solution([3,1,3,3]))
