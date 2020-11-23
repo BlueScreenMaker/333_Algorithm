@@ -1,16 +1,19 @@
 def Counting(num, count):
-    temp=list(num)
-    total=0
-    for i in range (0,len(temp)):
-        total += int(temp[i])
-    if(total<10):
-        if(total==3 or total==6 or total==9):
-            return print(count,"YES",sep='\n')
-        elif(total==1 or total==2 or total==4 or total==5 or total==7 or total==8):
-            return print(count,"NO",sep='\n')
+    total = 0
+    if int(num)>=10:
+        temp=list(num)
+        for i in range(0,len(temp)):
+            total += int(temp[i])
+        Counting(str(total),count+1)
     else:
-        count+=1
-        Counting(str(total),count)
+        total=int(num)
+        if total%3==0 and total!=0:
+            return print(count,"YES",sep='\n')
+        else:
+            return print(count,"NO",sep='\n')
+
+
+
 
 num=str(input())
-Counting(num, 1)
+Counting(num, 0)
