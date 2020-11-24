@@ -1,10 +1,10 @@
-def Move_hanoi(n,top1,top2,top3):
-    if count==1:
-        top1=[i for i in range(0,n)]
-    
-    return 0
+def Move_hanoi(n,front,end,middle):
+    if n==1:
+        return print(front,end,sep=' ')
+    Move_hanoi(n-1,front,middle,end)
+    print(front,end,sep=' ')
+    Move_hanoi(n-1,middle,end,front)
 
 num=int(input())
-top1,top2,top3=[]
-count=1
-Move_hanoi(num,top1,top2,top3,count)
+print((2**num)-1)
+Move_hanoi(num,1,3,2)
