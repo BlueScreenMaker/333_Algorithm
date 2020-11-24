@@ -14,7 +14,6 @@ def solution(s):
         for b in range(0,len(num_list[a])):
             if not int(num_list[a][b]) in answer:
                 answer.append(int(num_list[a][b]))
-
     return answer
 
 print(solution("{{4,2,3},{3},{2,3,4,1},{2,3}}"))
