@@ -1,13 +1,34 @@
 N,M=map(int, input().split())
 
-temp_list=[]
-for a in range(0,M):
-    temp_list.append(list(map(int, input().split())))
-
 trust_list=[[] for _ in range(0,N+1)]
 for i in range(0,M):
-    trust_list[temp_list[i][1]].append(temp_list[i][0])
-print(trust_list)
+    A,B=map(int,input().split())
+    trust_list[B].append(A)
 
-# trust list에서 가장 길이가 긴 배열을 찾음
-#  그 배열을 기준으로 깊이 탐색을 돌리면 될 것 같은데 이론은 잡히는데 구현이 안되니 일단 적어둠
+visited=[False] * (N+1)
+
+def Seaching(x):
+    for i in trust_list[x]:
+        if not visited[i]:
+            visited[i] = True
+            Seaching(i)
+
+
+counting_computer={}
+
+for j in range(1,N+1):
+    Seaching(j)
+    counting_computer[j]=visited.count(True)
+    visited=[False]*(N+1)
+
+# print(counting_computer)
+
+sort=sorted(counting_computer.items(), key=lambda x:x[1],reverse=True)
+
+print(sort[0][0],end=' ')
+max_count=sort[0][1]
+for z in range(1, N):
+    if max_count==sort[z][1]:
+        print(sort[z][0], end=' ')
+    else:
+        break
