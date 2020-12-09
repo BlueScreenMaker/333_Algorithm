@@ -2,7 +2,7 @@ from collections import deque
 
 way=[[0,-1],[+1,-1],[+2,0],[+2,+1],[0,+2],[+1,+2],[-1,0],[-1,+1]]
 
-def check(m,n,block):
+def check(m,n,block,word):
     queue=deque()
 
     return
@@ -16,7 +16,7 @@ def solution(m, n, board):
     for i in range(0,m-1):
         for j in range(0,n-1):
             if block[i][j]==block[i][j+1]==block[i+1][j]==block[i+1][j+1]:
-                check(i,j,block)
+                check(i,j,block,block[i][j])
                 print("4블록")
     answer = 0
     return answer
