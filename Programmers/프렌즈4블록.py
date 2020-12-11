@@ -37,6 +37,3 @@ def solution(m, n, board):
 
 
     return answer
-
-
-print(solution(4,5,["CCBDE", "AAADE", "AAABF", "CCBBF"]))
