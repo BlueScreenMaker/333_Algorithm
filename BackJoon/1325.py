@@ -8,6 +8,7 @@ for i in range(0,M):
 visited=[False] * (N+1)
 
 def Seaching(x):
+
     for i in trust_list[x]:
         if not visited[i]:
             visited[i] = True
