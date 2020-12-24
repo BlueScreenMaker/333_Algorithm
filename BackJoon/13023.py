@@ -1,17 +1,14 @@
 import sys
 sys.setrecursionlimit(100000)
-friendship=set()
+friendship=[]
 
 
 def check_relationship(check,R,visited):
-
-    # print(check)
-
-
+    visited[check]=True
+    friendship.append(check)
     for i in R[check]:
-        if not visited[check][i]:
-            friendship.add(i)
-            print(i)
+        if not visited[i]:
+            visited[i]=True
             check_relationship(i, R, visited)
             break
 
@@ -24,23 +21,22 @@ for t in range(0,total):
     relationship[A].append(B)
     relationship[B].append(A)
 
-visited=[ [] for _ in range(0,len(relationship))]
-for i in range(0,len(relationship)):
-    for j in range(0,len(relationship[i])):
-        visited[i].append(False)
+visited=[False for _ in range(0,people)]
 
 for y in range(0,people):
     if (len(relationship)>0):
         point=y
+        break
 
-# check_relationship(0,relationship,visited)
+print(point)
+check_relationship(point,relationship,visited)
 print(relationship)
-print(visited)
-# print(friendship)
+print(friendship)
+flag=len(friendship)
 
 
 
-# if point >= 4:
-#     print(1)
-# else:
-#     print(0)
+if flag >= 5:
+    print(1)
+else:
+    print(0)
