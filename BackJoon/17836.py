@@ -11,52 +11,43 @@ for a in range(N):
 
 visited=[[False for _ in range(0,M)] for _ in range(0,N)]
 
+castle_gram=[[ 0 for _ in range(0,M)] for _ in range(0,N)]
+
+answer=10001
 
 
-def Path(x,y):
+def Path(x,y,point):
     que=deque()
-    que.append((x,y))
-    gram = False
+    que.append((x,y,point))
+    global answer
     while que:
-        x,y=que.popleft()
+        x,y,point=que.popleft()
+        visited[x][y]=True
+        if x==N-1 and y==M-1:
+            answer=min(answer,point)
         for i in range(0,4):
             nx=x+dx[i]
             ny=y+dy[i]
-            if not gram:
-                if nx<0 or ny<0 or nx>=N or ny>=M:
-                    continue
-                if castle[nx][ny]==1 and visited[nx][ny]==False:
-                    visited[nx][ny]=True
-                    continue
-                if castle[nx][ny]==0 and visited[nx][ny]==False:
-                    castle[nx][ny]=castle[x][y]+1
-                    visited[nx][ny] = True
-                    que.append((nx,ny))
-                if castle[nx][ny]==2 and visited[nx][ny]==False:
-                    gram=True
-                    castle[nx][ny]=0
-            elif gram:
-                if nx<0 or ny<0 or nx>=N or ny>=M:
-                    continue
-                if visited[nx][ny]==False:
-                    if castle[x][y]==1:
-                        castle[nx][ny]+=castle[x][y]
-                    else:
-                        castle[nx][ny]=castle[x][y]+1
-                    visited[nx][ny] = True
-                    que.append((nx,ny))
+            if nx<0 or ny<0 or nx>=N or ny>=M:
+                continue
+            if castle[nx][ny]==1 and visited[nx][ny]==False:
+                visited[nx][ny]=True
+                continue
+            if castle[nx][ny]==0 and visited[nx][ny]==False:
+                visited[nx][ny] = True
+                que.append((nx,ny,point+1))
+            if castle[nx][ny]==2 and visited[nx][ny]==False:
+                castle[nx][ny]=0
+                visited[nx][ny]=True
+                answer=min(answer,N-nx+M-ny+point-1)
 
-    #         방문시......
-    # 마법의 칼 만날 때도 생각해야해
-    return castle[N-1][M-1]
+    return answer
 
 
-value=Path(0,0)
+value=Path(0,0,0)
+# print(value)
 if(value<=T):
-    if(value==0):
-        print("Fail")
-    else:
-        print(value)
+    print(value)
 else:
     print("Fail")
 
