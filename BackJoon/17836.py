@@ -45,11 +45,9 @@ def Path(x,y,point):
 
 
 value=Path(0,0,0)
-# print(value)
+
 if(value<=T):
     print(value)
 else:
     print("Fail")
 
-
-# print(castle)
