@@ -1,3 +1,4 @@
+import copy
 import sys
 from collections import deque
 
@@ -10,44 +11,64 @@ for t in range(0,R):
     string=sys.stdin.readline()
     Tforest.append(list(string))
 
+global visited
 visited=[[False for _ in range(0,C)] for _ in range(0,R)]
-
 counting=[[0 for _ in range(0,C)] for _ in range(0,R)]
 
 
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 
-def escape(x,y,forest):
+
+def escape(x,y,forest,flood):
     que=deque()
+    copyQ = deque()
     que.append((x,y))
+
     while que:
-        x,y=que.popleft()
-        for i in range(0,4):
-            nx=x+dx[i]
-            ny=y+dy[i]
+        temp=copy.deepcopy(flood)
+        flood.clear()
+        s=len(temp)
 
-            if nx<0 or ny<0 or nx>=R or ny>=C:
-                continue
+        for a in range(0,s):
+            waterX,waterY=temp[a]
+            for b in range(0,4):
+                fx=waterX+dx[b]
+                fy=waterY+dy[b]
+                if fx<0 or fy<0 or fx>=R or fy>=C:
+                    continue
+                if forest[fx][fy]=='.' and visited[fx][fy]==False:
+                    visited[fx][fy]=True
+                    flood.append([fx,fy])
 
-            if forest[nx][ny]=='D' and visited[nx][ny]==False: #비버굴 찾을 시 통과
-                counting[nx][ny] += counting[x][y] + 1
-                visited[nx][ny]=True
-                return
+        copyQ = copy.deepcopy(que)
+        que.clear()
 
-            if forest[nx][ny]=='X' and visited[nx][ny]==False: #돌은 지나가지 못함
-                visited[nx][ny]=False
-                continue
+        while copyQ:
+            x,y=copyQ.popleft()
 
-            if forest[nx][ny]=='*' and visited[nx][ny]==False: #물도 못지나감
-                visited[nx][ny]=True
-                continue
+            for i in range(0,4):
+                nx=x+dx[i]
+                ny=y+dy[i]
 
-            if forest[nx][ny]=='.' and visited[nx][ny]==False: #비어있는 이곳은 물이 찰까? => 검사가 필요
-                visited[nx][ny] = True
-                if Check_water(nx,ny,forest):
-                    counting[nx][ny]+=counting[x][y]+1
+
+                if nx<0 or ny<0 or nx>=R or ny>=C:
+                    continue
+
+                if forest[nx][ny]=='D' and visited[nx][ny]==False: #비버굴 찾을 시 통과
+                    counting[nx][ny] = counting[x][y] + 1
+                    visited[nx][ny]=True
+                    return
+
+                if forest[nx][ny]=='X' and visited[nx][ny]==False: #돌은 지나가지 못함
+                    visited[nx][ny]=True
+                    continue
+
+                if forest[nx][ny]=='.' and visited[nx][ny]==False: #비어있는 이곳은 물이 찰까? => 검사가 필요
+                    visited[nx][ny] = True
+                    counting[nx][ny]=counting[x][y]+1
                     que.append((nx,ny))
+
 
 
 def Check_water(x,y,Tforest):
@@ -78,14 +99,24 @@ def Check_water(x,y,Tforest):
         return True
 
 
+flood_position=[]
 
 for a in range(0,R):
     for b in range(0,C):
         if Tforest[a][b]=='S':
-            escape(a,b,Tforest)
+            visited[a][b]=True
+            sonyX=a
+            sonyY=b
+        if Tforest[a][b]=='*':
+            flood_position.append([a,b])
+            visited[a][b]=True
         if Tforest[a][b]=='D':
             positionX=a
             positionY=b
+        if Tforest[a][b]=='X':
+            visited[a][b]=True
+
+escape(sonyX,sonyY,Tforest,flood_position)
 
 if counting[positionX][positionY]>0:
     print(counting[positionX][positionY])

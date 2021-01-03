@@ -1,21 +1,20 @@
+answer = 0
+
 def operation(number,count, target, total):
-    if count>len(number):
+    global answer
+    if count>=len(number):
         if total==target:
-            return True
-        else:
-            return False
+            answer+=1
+        return
     else:
-        check=number.pop(0)
+        check=number[count]
         for i in [-1,+1]:
             temp=check*i
-            total+=temp
-            print(total)
-            operation(number,count+1,target,total)
+            operation(number,count+1,target,total+temp)
 
 def solution(numbers, target):
-    visited = [False * len(numbers)]
-    print(operation(numbers,0,target,0,visited))
-    answer = 0
+    global answer
+    operation(numbers,0,target,0)
     return answer
 
 print(solution([1, 1, 1, 1, 1],3))

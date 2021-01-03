@@ -2,11 +2,9 @@ import sys
 from collections import deque
 
 people=int(sys.stdin.readline())
-
 test1, test2=map(int,sys.stdin.readline().split())
 
 total=int(sys.stdin.readline())
-
 relationship=[[] for a in range(0,people+1)]
 counting=[0]*(people+1)
 
