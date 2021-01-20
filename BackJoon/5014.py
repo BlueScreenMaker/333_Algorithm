@@ -7,43 +7,30 @@ visited=[False]*(F+1)
 
 
 def MeetingRoom(position,visited):
-    que=deque()
+    que=deque([[position,0]])
     visited[position]=True
-    que.append(position)
     while que:
-        check=que.popleft()
-        print(check)
-        if check>G:
-            check-=D
-            if (check<=F and check>=1):
-                if check==G:
-                    return
-                else:
-                    if not visited[check]:
-                        visited[check]=True
-                        que.append(check)
-        elif check<G:
-            check+=U
-            if (check<=F and check>=1):
-                if check==G:
-                    return
-                else:
-                    if not visited[check]:
-                        visited[check]=True
-                        que.append(check)
+        check,count=que.popleft()
+        # print(check)
+        if check==G:
+            return count
+        if check+U<=F and not (visited[check+U]):
+                que.append([check+U,count+1])
+                print(check+U, count+1)
+                visited[check+U]=True
+        if check-D>=1 and not (visited[check-D]):
+                que.append([check-D,count+1])
+                print(check + D, count + 1)
+                visited[check-D]=True
 
-        elif check==G:
-            return
-
+    return 'use the stairs'
 
 if S==G:
     print(0)
 else:
-    MeetingRoom(S, visited)
-    point=visited.count(True)
-    if point==1:
-        print("use the stairs")
-    else:
-        print(point)
+    print(MeetingRoom(S, visited))
 
 
+
+# if대신 elif 쓰고
+# que에 카운트 삽입대신 더함
