@@ -21,12 +21,16 @@ def reset(v):
     for i in range(0,R):
         for j in range(0,C):
             v[i][j]==False
+
+global cluster
+cluster=[]
+
+
 def check_cluster(x,y):
     que=deque()
     que.append((x,y))
+    cluster.clear()
     visited[x][y]=True
-    global cluster
-    cluster=[]
     while que:
         x,y=que.popleft()
         for i in range(4):
@@ -41,6 +45,7 @@ def check_cluster(x,y):
                     return -1
                 else:
                     cluster.append([nx,ny])
+                    print(cluster)
                     visited[nx][ny]=True
                     que.append((nx,ny))
 
@@ -50,19 +55,23 @@ def fall_cluster(cluster):
     for i in range(len(cluster),0,-1):
         Xpoint=cluster[i][0]
         Ypoint=cluster[i][1]
-        if cluster[Xpoint+1][Ypoint]=='.':
-            cluster[Xpoint][Ypoint] = '.'
-            cluster[Xpoint+1][Ypoint]='x'
+        for i in range(Xpoint+1,R):
+            if cluster[Xpoint+1][Ypoint]=='.':
+                cluster[Xpoint][Ypoint] = '.'
+                cluster[Xpoint+1][Ypoint]='x'
 
 
-for i in range(+0,len(throw_high)):
+for i in range(0,len(throw_high)):
     global high
     high = R - throw_high[i]
     if i%2==1:
         for j in range(0,C):
             if cave[high][j]=='x':
                 cave[high][j]='.'
-                check=check_cluster(high,j)
+                for a in range(0,R):
+                    for b in range(0,C):
+                        if cave[a][b]=='x':
+                            check_cluster(a,b)
                 if check!=0:
                     reset(visited)
                     continue

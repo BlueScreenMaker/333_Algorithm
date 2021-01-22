@@ -11,16 +11,14 @@ def MeetingRoom(position,visited):
     visited[position]=True
     while que:
         check,count=que.popleft()
-        # print(check)
+        print("층=",check,"횟수=",count)
         if check==G:
             return count
         if check+U<=F and not (visited[check+U]):
                 que.append([check+U,count+1])
-                print(check+U, count+1)
                 visited[check+U]=True
         if check-D>=1 and not (visited[check-D]):
                 que.append([check-D,count+1])
-                print(check + D, count + 1)
                 visited[check-D]=True
 
     return 'use the stairs'
