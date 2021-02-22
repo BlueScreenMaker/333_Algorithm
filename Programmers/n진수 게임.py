@@ -17,6 +17,7 @@ def solution(n, t, m, p):
             number.append(i)
         count+=1
     test=list_chunk(number,m)
+    print(test)
     answer = ''
     for a in range(0,len(test)):
         for b in range(0,m):
