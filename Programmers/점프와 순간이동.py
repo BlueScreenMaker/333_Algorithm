@@ -7,5 +7,5 @@ def solution(N):
         else:
             N=N-1
             ans+=1
-
     return ans
+
