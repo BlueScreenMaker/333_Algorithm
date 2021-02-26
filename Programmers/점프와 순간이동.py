@@ -9,3 +9,4 @@ def solution(N):
             ans+=1
     return ans
 
+print(solution(5))
