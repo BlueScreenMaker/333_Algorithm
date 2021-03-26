@@ -15,5 +15,3 @@ for j in range(N-1,-1,-1):
         break
 
 print(count)
-
-

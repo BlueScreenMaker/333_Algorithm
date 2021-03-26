@@ -13,13 +13,14 @@ def solution(number, k):
             else:
                 break
         num_list.append(i)
+        print(num_list)
     if k>0:
         for i in range(k):
             num_list.pop()
 
     ans="".join(num_list)
     return ans
-print(solution("4177252841",4))
+print(solution("4177252841",7))
 
 
 # def solution(number, k):
