@@ -1,5 +1,3 @@
-import itertools
-
 def solution(number, k):
     num_list=[]
     for i in number:
