@@ -9,7 +9,7 @@ city=[[INF] * (n + 1) for _ in range(n + 1)]
 
 for c in range(m):
     start,end,cost=map(int,sys.stdin.readline().split())
-    city[start][end]=min(cost,city[start][end]) #왜 입력 받을때 최소값 비교함??? 이해안됨
+    city[start][end]=min(cost,city[start][end]) # 1 → 4 비용 2 와 1 → 4 비용 3이 있어서 최솟값 비교
 
 for k in range(1, n + 1):
     for i in range(1,n+1):
