@@ -6,7 +6,7 @@ def solution(new_id):
     #2단계
     answer=re.sub('[^a-z\d\-\_\.]','',answer)
     #3단계
-    answer=re.sub('\.+','.',answer)
+    answer=re.sub('\.{2,}','.',answer)
     #4단계
     answer=re.sub('^\.|\.$','',answer)
     #5단계
