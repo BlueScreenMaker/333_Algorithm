@@ -12,6 +12,7 @@ def solution(numbers):
                 answer.append(int(bin_num,2))
             else:
                 bin_num=bin_num[:point]+'10'+bin_num[point+2:]
+                # index 값 범위를 넘어가면 빈값출력
                 answer.append(int(bin_num,2))
     return answer
 
