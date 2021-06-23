@@ -11,34 +11,32 @@ while True:
 for s in tags:
     flag=0
     stack=[]
+    stop=False
     for j in range(len(s)):
         if s[j]=="<":
             flag=j+1
         elif s[j]==">":
-            temp=s[flag:j]
-            if "/" in temp:
-                if temp[:-2]=="/>":
-                    continue
-                else:
+            if s[j-1]=='/':
+                continue
+            else:
+                temp=s[flag:j]
+                if temp[0]=="/":
                     if stack:
                         check=stack.pop()
                         if check!=temp[1:]:
-                            stack.append(check)
+                            stop=True
                     else:
-                        stack.append(temp)
-                        break
-            else:
-                if temp.startswith('a'):
-                    stack.append(temp[0])
+                        stop=True
+
                 else:
-                    stack.append(temp)
+                    add=temp.split(" ")[0]
+                    stack.append(add)
+
 
     if not stack:
-        print("legal")
+        if stop:
+            print("illegal")
+        else:
+            print("legal")
     else:
         print("illegal")
-
-
-
-
-

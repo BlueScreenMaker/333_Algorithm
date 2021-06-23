@@ -5,8 +5,71 @@ N=int(sys.stdin.readline())
 ticket=[]
 for i in range(N):
     a,b,c,d,e=sys.stdin.readline().split()
-    a1=a[:1]
+    a1=ord(a[:1])*1000
     a2=int(a[2:])
+    ticket.append(a1+a2)
+    b1=ord(b[:1])*1000
+    b2=int(b[2:])
+    ticket.append(b1+b2)
+    c1=ord(c[:1])*1000
+    c2=int(c[2:])
+    ticket.append(c1+c2)
+    d1=ord(d[:1])*1000
+    d2=int(d[2:])
+    ticket.append(d1+d2)
+    e1=ord(e[:1])*1000
+    e2=int(e[2:])
+    ticket.append(e1+e2)
+
+ticket_sort=sorted(ticket, reverse=True)
+
+ticket=ticket[::-1]
+
+stack=[]
+
+while True:
+    if ticket_sort:
+        point=ticket_sort[-1]
+        if ticket:
+            if point==ticket[-1]:
+                ticket.pop()
+                ticket_sort.pop()
+            else:
+                if stack:
+                    if point==stack[-1]:
+                        stack.pop()
+                        ticket_sort.pop()
+                    else:
+                        stack.append(ticket.pop())
+                else:
+                    stack.append(ticket.pop())
+        else:
+            if stack:
+                if point==stack[-1]:
+                    stack.pop()
+                    ticket_sort.pop()
+                else:
+                    break
+            else:
+                break
+    else:
+        break
+
+if not (stack and ticket_sort):
+    print("GOOD")
+else:
+    print("BAD")
+
+
+''' 문자열 치환 안하고 그냥 쌩으로
+
+N=int(sys.stdin.readline())
+
+ticket=[]
+for i in range(N):
+    a,b,c,d,e=sys.stdin.readline().split()
+    a1=a[:1] 
+    a2=int(a[2:]) 
     ticket.append([a1,a2])
     b1=b[:1]
     b2=int(b[2:])
@@ -62,3 +125,4 @@ if not (stack and ticket_sort):
     print("GOOD")
 else:
     print("BAD")
+'''
