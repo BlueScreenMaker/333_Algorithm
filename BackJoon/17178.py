@@ -4,22 +4,11 @@ N=int(sys.stdin.readline())
 
 ticket=[]
 for i in range(N):
-    a,b,c,d,e=sys.stdin.readline().split()
-    a1=ord(a[:1])*1000
-    a2=int(a[2:])
-    ticket.append(a1+a2)
-    b1=ord(b[:1])*1000
-    b2=int(b[2:])
-    ticket.append(b1+b2)
-    c1=ord(c[:1])*1000
-    c2=int(c[2:])
-    ticket.append(c1+c2)
-    d1=ord(d[:1])*1000
-    d2=int(d[2:])
-    ticket.append(d1+d2)
-    e1=ord(e[:1])*1000
-    e2=int(e[2:])
-    ticket.append(e1+e2)
+    number=list(sys.stdin.readline().split())
+    for j in number:
+        a1=ord(j[:1])*1000
+        a2=int(j[2:])
+        ticket.append(a1+a2)
 
 ticket_sort=sorted(ticket, reverse=True)
 
