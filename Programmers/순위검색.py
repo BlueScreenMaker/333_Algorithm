@@ -23,9 +23,6 @@ def solution(info, query):
 
     for qu in query:
         qu=qu.replace(" and "," ",3)
-        #while 'and' in q_query:
-        #    q_query.remove('and')
-
         q=qu.split(' ')
         q_score=int(q[-1])
         q_query=q[:-1]
@@ -35,9 +32,14 @@ def solution(info, query):
 
         q_query=''.join(q_query)
 
-        if q_query in info_dic:
-            score=info_dic[q_query]
 
+        if q_query in info_dic:
+            score = info_dic[q_query]
+            # count=0
+            # for x in score:
+            #     if x>=q_score:
+            #         count+=1
+            # answer.append(count)
             if len(score)>0:
                 start,end=0,len(score)
                 while start<end:
@@ -52,7 +54,6 @@ def solution(info, query):
                 # 점수가 높으면 만사 오케이니까 큰 지점 찾으면 거기 기준으로 오른쪽값만 봄
         else:
             answer.append(0)
-
 
     return answer
 
