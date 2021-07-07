@@ -6,6 +6,7 @@ stack=list(sys.stdin.readline())
 stack=stack[:-1] #개행문자 빼고
 stack=stack[::-1] #뒤집어줍니다.
 
+
 woman=0
 man=0
 

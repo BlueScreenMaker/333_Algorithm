@@ -9,15 +9,14 @@ def solution(orders, course):
         for menu in orders:
             result=itertools.combinations(menu,num)
             find+=result
-            print(find)
         count=collections.Counter(find)
+
         if count:
             maxCount=max(count.values())
             if maxCount>=2:
                 for k,v in count.items():
                     if count[k]==maxCount:
                         answer.append(''.join(k))
-
 
     return sorted(answer)
 
