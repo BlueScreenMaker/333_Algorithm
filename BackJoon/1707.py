@@ -30,7 +30,7 @@ for i in range(K):
     for z in range(1,V+1):
         if color[z]==0:
             flag=bfs(z)
-            if not flag: break # 핵심이네 그 이유가 뭘까??
+            if not flag: break
 
     if flag:
         print("YES")
