@@ -27,10 +27,6 @@ def bfs(x,y):
                 visited[nx][ny]=True
 
 
-
-
-    return
-
 for i in range(T):
     H,W=map(int,sys.stdin.readline().split())
     field=[]
