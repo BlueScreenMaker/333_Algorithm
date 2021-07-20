@@ -1,20 +1,35 @@
-def solution(begin, target, words):
-    answer = 0
-    if not target in words:
-        return answer
-    else:
-        visited=[False for _ in range (len(words))]
-        for i in range(0,len(words)):
-            if not visited[i]:
-                count=0
-                for j in range(0,len(words[i])):
-                    if begin[j]!=words[i][j]:
-                        count+=1
-                if count<2:
-                    begin=words[i]
-                    answer+=1
-                    visited[i]=True
-                if begin==target:
-                    return answer-1
+from collections import deque
 
-print(solution("hit","cog",["hot", "dot", "dog", "lot", "log","cog"]))
+global answer
+
+def bfs(begin, target, words, visited):
+    answer=0
+    que=deque()
+    que.append(begin)
+    while que:
+        check=que.pop()
+        if check==target:
+            return answer
+        for i in range(len(words)):
+            if visited[i]==True:
+                continue
+            count=0
+            for a,b in zip(check,words[i]):
+                if a!=b:
+                    count+=1
+            if count==1:
+                visited[i]=True
+                que.append(words[i])
+        answer+=1
+
+    return answer
+
+def solution(begin, target, words):
+    if not target in words:
+        return 0
+
+    visited=[False for _ in words]
+    answer=bfs(begin,target,words,visited)
+    return answer
+
+print(solution("hit","cog",["hot", "dot", "dog", "lot", "log", "cog"]))
