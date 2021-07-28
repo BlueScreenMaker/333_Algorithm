@@ -44,6 +44,8 @@ def higher(h):
 U=higher(X)
 if U==0:
     U=1
+else:
+    U+=1
 
 V=lower(X)
 if V==0:
