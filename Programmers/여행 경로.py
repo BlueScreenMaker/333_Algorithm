@@ -1,8 +1,28 @@
-from collections import deque
+def solution(tickets):
+    tickets=sorted(tickets, key=lambda x:x[1], reverse=True)
+    router=dict()
+    for start,end in tickets:
+        if start in router:
+            router[start].append(end)
+        else:
+            router[start]=[end]
 
-global answer
-answer = []
+    answer = []
+    temp=["ICN"]
+    while temp:
+        check=temp[-1]
+        if check not in router or len(router[check])==0:
+            answer.append(temp.pop())
+        else:
+            temp.append(router[check].pop())
+    return answer[::-1]
 
+
+print(solution([["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]))
+# print(solution([["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]))
+# print(solution([["ICN", "BBB"],["ICN", "CCC"],["BBB", "CCC"],["CCC", "BBB"],["CCC", "ICN"]]))
+
+'''
 def set_arrvie(tickets,visited,check,index,N):
     que=deque()
     visited[index][0]=True
@@ -39,41 +59,4 @@ def solution(tickets):
     set_arrvie(tickets,visited,tickets[position][1],position,N)
 
     return answer
-
-# print(solution([["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]))
-
-# print(solution([["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]))
-
-print(solution([["ICN", "BBB"],["ICN", "CCC"],["BBB", "CCC"],["CCC", "BBB"],["CCC", "ICN"]]))
-
-# global answer
-# answer = []
-#
-# flag=True
-#
-# def set_arrive(start, ticket, N, visited):
-#     temp=[]
-#     for i in range(0,N):
-#         if start in ticket[i][0]:
-#             if not visited[i][0] and not visited[i][1]:
-#                 temp.append([ticket[i][1],i])
-#     if temp:
-#         temp=sorted(temp,key=lambda x:x[0])
-#         choice, position=temp[0][0],temp[0][1]
-#         visited[position][0]=True
-#         visited[position][1]=True
-#         answer.append(choice)
-#         set_arrive(choice,ticket,N,visited)
-#     else:
-#         return
-#
-#
-# def solution(tickets):
-#     N=len(tickets)
-#     visited=[[False,False] for _ in range (N)]
-#     answer.append("ICN")
-#     set_arrive("ICN",tickets,N,visited)
-#     return answer
-
-
-
+'''
