@@ -13,7 +13,7 @@ for i in range(T):
     checking.append(rank[0][1])
     total=1
 
-    for z in range(1,N-1):
+    for z in range(1,N):
         point=checking[-1]
         if point>=rank[z][1]:
             total+=1
