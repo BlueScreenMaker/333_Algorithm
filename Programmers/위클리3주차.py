@@ -1,98 +1,99 @@
 from collections import deque
+import copy
 
 global answer
-answer=[]
+answer = 0
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+empty_g = []
+block_t = []
 
 
-dx=[-1,+1,0,0]
-dy=[0,0,-1,+1]
-def bfs(x,y,board,visited,empty, check,N):
-    result=[]
-    que=deque()
-    que.append([x,y])
+def bfs(x, y, N, visited, array, check):
+    space = []
+    que = deque()
+    que.append([x, y])
+    space.append([x, y])
+    visited[x][y] = True
     while que:
-        nx,ny=que.popleft()
+        px, py = que.popleft()
         for i in range(4):
-            px=nx+dx[i]
-            py=ny+dy[i]
-            if px<0 or py<0 or px>=N or py>=N:
+            nx = px + dx[i]
+            ny = py + dy[i]
+            if nx < 0 or ny < 0 or nx >= N or ny >= N:
                 continue
-            else:
-                if visited[px][py]==False and board[px][py]==check:
-                    result.append([nx,ny])
-                    visited[px][py]=True
-                    que.append([px,py])
-    empty.append(sorted(result))
+            if visited[nx][ny] == False and array[nx][ny] == check:
+                visited[nx][ny] = True
+                que.append([nx, ny])
+                space.append([nx, ny])
 
-def change(b):
-    temp=[]
-    if b:
-        cx=b[0][0]
-        cy=b[0][1]
-        for ax, ay in b:
-            temp.append([ax-cx,ay-cy])
-    return sorted(temp)
+    return sorted(space)
 
-def rotate(b,N):
-    new_b=[]
-    for x,y in b:
-        new_b.append([y,N-1-x])
-    return change(new_b)
 
-def matching(b,N,empty_b):
-    for t in range(N):
-        for h in range(N):
-            match=[]
-            for x,y in b:
-                check_x=t+x
-                check_y=h+y
-                if check_x<0 or check_y<0 or check_y>=N or check_x>=N:
-                    break
-                else:
-                    match.append([check_x,check_y])
-            if len(b)==len(match) and match in empty_b:
-                empty_b.remove(match)
-                answer.extend(match)
-                return True
-    return False
+def rotate(b, N):
+    new_board = []
+
+    for block in b:
+        new_board.append([block[1], -block[0]])
+
+    return sorted(standard(new_board, N))
+
+
+def standard(b, N):
+    change = []
+    minx = N
+    miny = N
+    for i in b:
+        minx = min(minx, i[0])
+        miny = min(miny, i[1])
+    for x, y in b:
+        change.append([x - minx, y - miny])
+    return sorted(change)
 
 
 def solution(game_board, table):
+    global answer
+    N = len(game_board)
 
-    N=len(game_board)
-
-    visited_b=[[False for _ in range(N)] for _ in  range(N)]
-    visited_t=[[False for _ in range(N)] for _ in  range(N)]
-
-    empty_b=[]
-    empty_t=[]
+    visited_g = [[False for _ in range(N)] for _ in range(N)]
+    visited_t = [[False for _ in range(N)] for _ in range(N)]
 
     for i in range(N):
         for j in range(N):
-            if visited_b[i][j]==False and game_board[i][j]==0:
-                bfs(i,j,game_board,visited_b,empty_b,0,N)
-            if visited_t[i][j]==False and table[i][j]==1:
-                bfs(i,j,table,visited_t,empty_t,1,N)
-
-
-    block=[]
-
-    for a in empty_t:
-        block.append(change(a))
-
-
-    for z in block:
-        for w in range(4):
-            if matching(z,N,empty_b)==False:
-                z=rotate(z,N)
-
+            if game_board[i][j] == 0 and visited_g[i][j] == False:
+                empty_g.append(bfs(i, j, N, visited_g, game_board, 0))
+            if table[i][j] == 1 and visited_t[i][j] == False:
+                block_t.append(bfs(i, j, N, visited_t, table, 1))
             else:
-                break
+                continue
 
+    table_block = []
+    for a in block_t:
+        table_block.append(standard(a, N))
+    # table의 빈 블록을 가장 앞 좌표를 0,0 기준으로 전환
 
-    print(len(answer))
-    return len(answer)
+    game_block = []
+    for b in empty_g:
+        game_block.append(standard(b, N))
 
-solution([[0,0,1,0,1,0,1,0,1,0,1,0,0,1,0,0,0,0], [1,0,0,0,1,0,1,0,1,0,1,0,0,1,0,1,1,1], [0,1,1,1,0,0,1,0,1,0,0,1,1,0,1,0,0,0], [0,0,0,0,1,1,0,0,1,1,0,1,0,0,1,0,0,0], [0,1,1,1,0,0,1,1,1,1,0,1,1,1,0,1,1,1], [1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0], [0,0,0,1,1,1,0,0,1,1,0,1,1,1,1,0,0,1], [1,1,1,0,0,0,1,1,0,0,1,0,0,0,0,1,1,0], [0,0,1,0,1,1,1,0,0,1,0,1,1,1,1,0,0,0], [1,1,0,1,1,0,1,1,1,1,0,1,0,0,0,1,1,1], [0,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,1,0], [1,1,1,1,0,1,1,1,1,1,0,1,0,1,0,0,1,0], [0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,1,0,0], [1,0,1,1,0,1,1,0,0,0,1,0,0,0,1,0,0,1], [1,0,0,1,1,0,0,1,1,1,0,1,1,1,0,1,1,0], [0,1,1,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0], [0,0,0,1,0,1,0,1,0,0,1,1,1,1,1,1,1,0], [0,1,0,1,1,0,0,1,0,1,0,0,0,0,0,0,1,0]]
-         ,
-         [[1,1,1,1,1,1,0,1,0,1,1,0,0,1,0,0,1,0], [0,0,0,0,0,0,1,1,1,0,1,0,1,1,0,1,1,0], [1,0,1,1,0,1,0,1,0,1,1,0,1,0,1,1,0,1], [1,1,0,1,1,1,0,1,0,1,0,1,1,0,1,0,0,1], [1,1,1,0,0,0,1,0,1,0,1,0,0,1,0,0,1,1], [0,0,0,1,1,1,0,1,1,1,0,1,1,0,1,0,0,0], [1,1,1,0,0,0,0,0,1,1,0,1,1,0,1,1,1,1], [0,0,1,0,1,1,0,1,0,0,1,0,0,1,0,0,0,0], [1,0,1,0,0,0,0,1,0,1,1,0,1,1,0,1,1,1], [1,0,1,0,1,1,1,1,0,1,1,0,0,0,1,1,1,0], [1,1,0,1,0,0,0,0,1,0,0,1,1,1,0,0,0,0], [0,0,1,1,1,1,0,1,1,0,1,0,0,0,1,1,0,1], [1,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,1], [1,1,0,0,1,1,1,0,1,1,0,1,0,1,0,1,0,1], [0,0,1,1,0,1,1,0,1,0,1,1,0,0,0,1,0,0], [1,1,1,0,1,0,0,1,0,1,1,0,0,1,0,1,0,1], [0,0,0,0,1,0,1,1,1,0,0,1,0,1,1,0,1,1], [0,1,1,1,1,0,0,1,0,0,1,1,0,1,0,0,1,1]])
+    for g_block in game_block:
+        if g_block in table_block:
+            answer += len(g_block)
+            table_block.remove(g_block)
+        else:
+            flag = False
+            for t_block in table_block:
+                temp = copy.copy(t_block)
+                for z in range(4):
+
+                    if g_block == temp:
+                        answer += len(g_block)
+                        table_block.remove(t_block)
+                        flag = True
+                        break
+                    temp = rotate(temp, N)
+                if flag:
+                    break
+
+    return answer
