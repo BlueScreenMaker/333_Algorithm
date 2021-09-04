@@ -18,6 +18,7 @@ def solution(number, k):
 
     ans="".join(num_list)
     return ans
+
 print(solution("4177252841",7))
 
 
