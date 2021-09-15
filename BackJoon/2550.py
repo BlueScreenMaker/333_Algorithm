@@ -1,29 +1,54 @@
 import sys
 
+# 0 0 4
+def Track(start, end, point):
+    global lower
+    if start > end:
+        return
+    m = (start + end) // 2
+
+    if LIS[m] > point:
+        lower = m
+        Track(start, m - 1, point)
+    else:
+        Track(m + 1, end, point)
+
+
 N=int(sys.stdin.readline())
 
 switch=list(map(int, sys.stdin.readline().split(" ")))
 light=list(map(int, sys.stdin.readline().split(" ")))
 
-relationship=[[] for _ in range(N+1)]
+relationship=[0 for _ in range(N+1)]
 
+for i, j in enumerate(light):
+    # i = index // v = light[i]
+    relationship[j] = i + 1
 
-for i in range(N):
-    relationship[switch[i]].append(i)
+print(relationship)
 
-for i in range(N):
-    relationship[light[i]].append(i)
+LIS = []
+track = []
+lower = 0
 
+for i in switch:
+    temp = relationship[i]
+    if len(LIS) == 0 or LIS[-1] < temp:
+        track.append(len(LIS))
+        LIS.append(temp)
+    else:
+        Track(0, len(LIS) - 1, temp)
+        LIS[lower] = temp
+        track.append(lower)
 
-dp=[ 0 for _ in range(N)]
+result = []
+check = max(track)
+for j in track[::-1]:
+    N -= 1
+    if check == j:
+        result.append(switch[N])
+        check -= 1
 
-dp[0]=1
-for i in range(1,N):
-    dp[i]=1
-    flag = relationship[switch[i]][1]
-    for j in range(0,i):
-        if flag>relationship[switch[j]][1]:
-            dp[i]=max(dp[i],dp[j]+1)
+print(len(result))
+print(' '.join(map(str, sorted(result))))
 
-
-print(max(dp))
