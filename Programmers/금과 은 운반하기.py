@@ -8,4 +8,10 @@
 def solution(a, b, g, s, w, t):
     answer = 0
 
+    start_t=1
+    end_t=100000
+
+    while start_t<=end_t:
+        mid=(start_t+end_t)//2
+
     return answer

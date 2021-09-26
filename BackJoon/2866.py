@@ -32,3 +32,9 @@ while start<=end:
         start=mid+1
 
 print(count)
+#
+# 4 6
+# mrvica
+# mrvica
+# marica
+# mateja
