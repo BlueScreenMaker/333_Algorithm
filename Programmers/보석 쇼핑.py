@@ -22,7 +22,7 @@ def solution(gems):
                 if current_gem[gems[start]]>1:
                     current_gem[gems[start]]-=1
                     start+=1
-                elif max>=end-start:
+                elif max>end-start:
                     max=end-start
                     answer=[start+1,end]
                     break

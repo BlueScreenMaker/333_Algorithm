@@ -8,6 +8,7 @@ X,Y=map(int, sys.stdin.readline().split())
 # trunc는 음수 내림시 소수점만 버림, -3.14가 -3이 됨
 Z=100*Y//X
 
+
 answer=0
 if Z>=99:
     answer=-1
