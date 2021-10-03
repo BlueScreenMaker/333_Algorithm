@@ -2,10 +2,10 @@ def solution(s):
     answer = 1
 
     for i in range(len(s)):
-        for j in range(i + 1, len(s)):
-            temp = s[i:j + 1]
+        for j in range(i + 1, len(s)+1):
+            temp = s[i:j]
             if temp == temp[::-1]:
-                answer = max(answer, j - i + 1)
+                answer = max(answer, len(temp))
 
     return answer
 print(solution("abacde"))
