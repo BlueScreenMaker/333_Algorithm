@@ -24,6 +24,5 @@ while left<right:
     else :
         right-=1
 
-
 print(answer1,answer2)
 
