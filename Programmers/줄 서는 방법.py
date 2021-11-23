@@ -6,8 +6,10 @@ def solution(n, k):
 
     while n!=0:
         check=math.factorial(n-1)
-        index=(k-1)//check
+        index=k//check
         k = k % check
+        if k==0:
+            index-=1
         answer.append(number_list.pop(index))
         n-=1
     return answer
