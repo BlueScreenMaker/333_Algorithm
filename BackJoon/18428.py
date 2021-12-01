@@ -1,6 +1,4 @@
-import copy
 import sys
-from collections import deque
 from itertools import combinations
 
 
@@ -50,7 +48,7 @@ for candi in list(combinations(empty, 3)):
         flag=True
         break
     for x, y in candi:
-        info[x][y]=='X'
+        info[x][y]='X'
 
 if flag:
     print("YES")
