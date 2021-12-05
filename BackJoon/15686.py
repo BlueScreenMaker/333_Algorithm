@@ -1,11 +1,9 @@
 import sys
-from collections import deque
 from itertools import combinations
 
 N,M=map(int,sys.stdin.readline().split())
 
 city=[]
-
 for i in range(N):
     city.append(list(map(int, sys.stdin.readline().split())))
 
@@ -17,13 +15,13 @@ for i in range(N):
 
 number=len(chicken)
 answer=0
-mid_answer = 101
+mid_answer = sys.maxsize
 answer=0
 if number==M:
     for q in range(N):
         for p in range(N):
             if city[q][p]==1:
-                mid = 101
+                mid = sys.maxsize
                 for t in range(number):
                     nx=abs(q-chicken[t][0])
                     ny=abs(p-chicken[t][1])
@@ -31,7 +29,6 @@ if number==M:
                     if mid>total:
                         mid=total
                 answer+=mid
-
 else:
     count=0
     for candi in list(combinations(chicken, number-M)):
@@ -40,7 +37,7 @@ else:
         for a in range(N):
             for b in range(N):
                 if city[a][b]==1:
-                    temp = 101
+                    temp =sys.maxsize
                     for t in range(number):
                         pX=chicken[t][0]
                         pY=chicken[t][1]
@@ -57,8 +54,7 @@ else:
         for x, y in candi:
             city[x][y] = 2
 
-
-if mid_answer!=101:
+if mid_answer!=sys.maxsize:
     answer=mid_answer
 
 print(answer)
