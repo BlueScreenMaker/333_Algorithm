@@ -10,21 +10,21 @@ for i in range(N):
 
 candidate=[]
 empty=0
+wall=[]
 for a in range(N):
     for b in range(N):
         if lab[a][b]==2:
             candidate.append([a,b])
         elif lab[a][b]==1:
-            lab[a][b]='-'
-        elif lab[a][b]==0:
-            empty+=1
+            wall.append([a,b])
 
 dx=[-1,1,0,0]
 dy=[0,0,-1,1]
-def searching(c,total):
+def searching(c):
     que=deque()
     for cx,cy in c:
         que.append([cx,cy])
+    global count
     count=0
     while que:
         px,py=que.popleft()
@@ -33,14 +33,11 @@ def searching(c,total):
             ny=py+dy[i]
             if nx<0 or ny<0 or nx>=N or ny>=N:
                 continue
-            if lab[nx][ny]==0 and visited[nx][ny]==False:
+            if visited[nx][ny]==False:
                 visited[nx][ny]=True
                 que.append([nx,ny])
-                total-=1
-                if total==0:
-                    return count
-        count += 1
-    return -1
+    count += 1
+
 
 
 
@@ -49,7 +46,8 @@ for candi in list(combinations(candidate, M)):
     for x, y in candi:
         lab[x][y]=-1
         visited[x][y]=True
-    temp=empty
-    print(searching(candi,temp))
+    for wx,wy in wall:
+        visited[wx][wy]=True
+    print(searching(candi))
     for x, y in candi:
         lab[x][y]=2
