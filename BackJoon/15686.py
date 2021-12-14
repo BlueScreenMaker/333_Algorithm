@@ -17,7 +17,7 @@ number=len(chicken)
 answer=0
 mid_answer = sys.maxsize
 answer=0
-if number==M:
+if number==M: #폐업 할 수 없을 때
     for q in range(N):
         for p in range(N):
             if city[q][p]==1:
@@ -29,7 +29,7 @@ if number==M:
                     if mid>total:
                         mid=total
                 answer+=mid
-else:
+else: #폐업 할 수 있을 때
     count=0
     for candi in list(combinations(chicken, number-M)):
         for x, y in candi:
