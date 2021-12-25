@@ -1,23 +1,9 @@
 import sys
 
-# 2
-# 6
-# 100 1 10 100 1 1
-# 7
-# 3 53 53 53 53 53 53
-# 6
-# 4 54 4 54 4 54
-# 1
-# 47
-# 1
-# 500
-# 1
-# 33
-
 case=int(sys.stdin.readline())
 
 for i in range(case):
-    count=0
+    answer=set()
     A_size=int(sys.stdin.readline())
     A_list=list(map(int,sys.stdin.readline().split()))
 
@@ -42,6 +28,9 @@ for i in range(case):
                         flag=False
 
                 if flag:
-                    count+=1
+                    answer.add(total)
 
-    print(count)
+                total-=C_list[z]
+            total-=B_list[y]
+
+    print(len(answer))
