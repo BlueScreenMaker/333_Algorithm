@@ -24,7 +24,7 @@ def solution(N, number):
                     candi_list[x].add(z - w)
                     candi_list[x].add(z * w)
                     if w != 0:
-                        candi_list[x].add(z // w)
+                        candi_list[x] .add(z // w)
         if number in candi_list[x]:
             answer = x + 1
             flag = True
