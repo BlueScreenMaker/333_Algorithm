@@ -4,6 +4,7 @@ dx=[-1,1,0,0]
 dy=[0,0,-1,1]
 
 def dfs(x,y):
+    # 0이면 False (숫자가 있는 경우 True)
     if distance[x][y]:
         return distance[x][y]
     distance[x][y]=1
