@@ -169,7 +169,7 @@
 - 프로그래머스 - [3Xn 타일링](https://programmers.co.kr/learn/courses/30/lessons/12902)
   - 백준 - [2133](https://www.acmicpc.net/problem/2133)
 
-![3Xn](./이미지/3xn.png)
+![3Xn](./이미지/3xn.PNG)
 
 ⑴ N이 짝수 일 때만 가능
 
