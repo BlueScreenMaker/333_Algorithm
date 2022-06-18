@@ -33,5 +33,10 @@ for i in range(T):
         dijkstra(pos)
         for pos in range(1,N+1):
             total_dis[pos]+=distance[pos]
-    min_num=min(total_dis[1:])
-    print(total_dis.index(min_num))
+    min_num=INF
+    idx=0
+    for i in range(1,N+1):
+        if min_num>total_dis[i]:
+            min_num=total_dis[i]
+            idx=i
+    print(idx)
