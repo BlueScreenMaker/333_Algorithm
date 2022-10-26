@@ -5,6 +5,7 @@ def solution(want, number, discount):
     shopping = dict()
     for pair in zip(want, number):
         shopping[pair[0]] = pair[1]
+
     for i in range(length-total+1):
         buy = dict()
         for j in range(i,i+total):
@@ -12,7 +13,7 @@ def solution(want, number, discount):
                 buy[discount[j]] += 1
             else:
                 buy[discount[j]] = 1
-        print(buy)
+
         if buy == shopping:
             answer += 1
     return answer
