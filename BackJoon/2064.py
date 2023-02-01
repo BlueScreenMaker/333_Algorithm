@@ -41,7 +41,6 @@ for j in range(4):
                 bin_max = zero + bin_max
 
             temp_net_ip = ''
-
             for h in range(8):
                 if bin_min[h] == bin_max[h]:
                     temp_net_ip += (bin_min[h])
@@ -50,7 +49,7 @@ for j in range(4):
                     temp_net_ip += zero_point
                     address_min.append(int(temp_net_ip, 2))
                     netmask.append(256-(2 ** (8-h)))
-                    flag =  False
+                    flag = False
                     break
     else:
         netmask.append(0)
