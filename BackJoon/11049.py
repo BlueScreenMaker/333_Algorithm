@@ -20,4 +20,4 @@ for i in range(1, N): #몇 번째 대각선?
                              dp[j][k] + dp[k+1][j+i] + array_info[j][0] * array_info[k][1] * array_info[j+i][1])
                 
     
-print(dp[0][N-1]) #맨 오른쪽 위
+print(dp[0][-1]) #맨 오른쪽 위
