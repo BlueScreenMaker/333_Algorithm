@@ -6,7 +6,7 @@ mod = 1_000_000_003
 
 dp = [ [0 for _ in range(K+1)] for _ in range(N+1)]
 
-# idx = n번째 색상 선택할지 말지 결정
+# idx = n번째 색상 선택한다.
 # select = 지금 까지 고른 색상
 for i in range(N+1):
     dp[i][1] = i
