@@ -8,13 +8,13 @@ for i in range(N):
 
 dp = [[0 for _ in range(N)] for i in range(N)]
 # dp[i][j]: i ~ j 까지 행렬 곱셈 최소 값
-for i in range(1, N): #몇 번째 대각선?
-    for j in range(0, N-i): #대각선에서 몇 번째 열?
-        if i == 1: #차이가 1밖에 나지 않는 칸
+for i in range(1, N):
+    for j in range(0, N-i): 
+        if i == 1: #차이가 1밖에 나지 않는 칸 > 이웃한 칸 
             dp[j][j+i] = array_info[j][0] * array_info[j][1] * array_info[j+i][1]
             continue
         
-        dp[j][j+i] = 2**32 #최댓값을 미리 넣어줌
+        dp[j][j+i] = 2**32 #최댓값을 미리 넣어줌 (최솟값을 구할 것 이기때문에)
         for k in range(j, j+i): 
             dp[j][j+i] = min(dp[j][j+i], 
                              dp[j][k] + dp[k+1][j+i] + array_info[j][0] * array_info[k][1] * array_info[j+i][1])
