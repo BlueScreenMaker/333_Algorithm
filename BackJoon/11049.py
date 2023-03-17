@@ -10,7 +10,7 @@ dp = [[0 for _ in range(N)] for i in range(N)]
 # dp[i][j]: i ~ j 까지 행렬 곱셈 최소 값
 for i in range(1, N):
     for j in range(0, N-i): 
-        if i == 1: #차이가 1밖에 나지 않는 칸 > 이웃한 칸 
+        if i == 1:  #차이가 1밖에 나지 않는 칸 > 이웃한 칸
             dp[j][j+i] = array_info[j][0] * array_info[j][1] * array_info[j+i][1]
             continue
         
