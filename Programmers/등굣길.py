@@ -9,7 +9,6 @@ def solution(m, n, puddles):
                 dp[i][j] = 0
                 continue
             dp[i][j] += (dp[i-1][j] + dp[i][j-1]) % 1_000_000_007
-
     return dp[n][m]
 
 print(solution(4,3,[[2, 2]]))
