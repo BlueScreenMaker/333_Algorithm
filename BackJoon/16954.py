@@ -5,8 +5,6 @@ chess = []
 for a in range(8):
     chess.append(list(sys.stdin.readline().rstrip()))
 
-que = deque()
-que.append([7,0])
 visited = [[False for _ in range(8)] for _ in range(8)]
 dx = [0, -1, 1, 0, 0, -1, -1,1, 1]
 dy = [0, 0, 0, -1, 1, -1, 1, -1, 1]
@@ -20,6 +18,8 @@ def move_wall():
                 temp_chess[i+1][j] = "#"
     return temp_chess
 
+que = deque()
+que.append([7,0])
 # 턴 계산
 def bfs():
     # 전 단계에서 가지고있던 경우의 수
