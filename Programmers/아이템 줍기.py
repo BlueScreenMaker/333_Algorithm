@@ -2,7 +2,7 @@ from collections import deque
 
 max_value = 102  # 1칸 차이나는 경우, 붙는 것으로 판정되는 일이 생김
 def solution(rectangle, characterX, characterY, itemX, itemY):
-    board = [[0] * max_value for _ in range(max_value)]
+    board = [[-1] * max_value for _ in range(max_value)]
     for x1, y1, x2, y2 in rectangle:
         dx1 = x1 * 2
         dy1 = y1 * 2
