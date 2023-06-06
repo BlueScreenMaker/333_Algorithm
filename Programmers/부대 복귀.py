@@ -2,7 +2,7 @@ from collections import deque
 
 def solution(n, roads, sources, destination):
     answer = []
-    visit = [-1]*(n+1)
+    visit = [-1] * (n + 1)
     relation = [[] for _ in range(n+1)]
     for s, e in roads:
         relation[s].append(e)
@@ -18,6 +18,20 @@ def solution(n, roads, sources, destination):
                 que.append(check)
     for i in sources:
         answer.append(visit[i])
+
+    # source에서 비교 > 시초
+    # for check in sources:
+    #     visit = [-1] * (n + 1)
+    #     que = deque([check])
+    #     visit[check] = 0
+    #     while que:
+    #         node = que.popleft()
+    #         for check in relation[node]:
+    #             if visit[check] == -1:
+    #                 visit[check] = visit[node] + 1
+    #                 que.append(check)
+    #
+    #     answer.append(visit[destination])
 
     return answer
 

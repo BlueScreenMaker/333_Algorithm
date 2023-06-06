@@ -18,7 +18,6 @@ def solution(user_id, banned_id):
                 count+=1
         if count==n:
             temp=sorted(check)
-            print(temp)
             if temp not in answer:
                 answer.append(temp)
 
