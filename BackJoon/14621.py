@@ -11,27 +11,9 @@ for a in range(N):
     else:
         gender[a+1] = 1
 
-relation = [[] for _ in range(N+1)]
+relation = []
 for b in range(M):
     u, v, d = map(int, sys.stdin.readline().split(" "))
-    relation[u].append([v,d])
-    # relation[v].append([u,d])
+    relation.append([d,u,v])
 
-dist = [int(1e9) for _ in range(N+1)]
-
-def bfs(start):
-    que = deque()
-    que.append([start,0])
-    total = 0
-    while que:
-        node, check = que.popleft()
-        min_value = int(1e9)
-        for temp in relation[node]:
-            if gender[temp[0]] != gender[node]:
-                min_value = min(min_value, temp[1])
-            else:
-                continue
-        total += min_value
-    return total
-
-print(bfs(1))
+relation.sort()
