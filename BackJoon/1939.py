@@ -1,8 +1,6 @@
 import sys
 from collections import deque
 
-sys.setrecursionlimit(10**9)
-
 INF = 1_000_000_001
 N,M = map(int, sys.stdin.readline().split(" "))
 
@@ -14,27 +12,38 @@ for _ in range(M):
 
 start, end = map(int, sys.stdin.readline().split(" "))
 
-visited = [False for _ in range(N+1)]
+
 result = []
-def bfs(start, w, end):
+def bfs(mid):
     que = deque()
     que.append(start)
-    temp = w
+    visited[start] = True
     while que:
         node = que.popleft()
-        for check, weight in relation[node]:
-            if check == end:
-                result.append(temp)
-                temp = INF
-            if not visited[check]:
-                que.append(check)
-                visited[check] = True
-                if temp > weight:
-                    temp = weight
-    return
+        if node == end:
+            return True
 
-bfs(start, INF, end)
-print(result)
+        for check, weight in relation[node]:
+            if not visited[check] and mid <= weight:
+                visited[check] = True
+                que.append(check)
+
+    return False
+
+answer = 0
+s, e = 0, INF
+
+while s <= e:
+    mid = (s+e) // 2
+    visited = [False for _ in range(N+1)]
+    if bfs(mid):
+        answer = max(answer, mid)
+        s = mid + 1
+    else:
+        e = mid - 1
+
+print(answer)
+
 '''
 메모리 초과
 result = []
