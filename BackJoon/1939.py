@@ -22,7 +22,6 @@ def bfs(mid):
         node = que.popleft()
         if node == end:
             return True
-
         for check, weight in relation[node]:
             if not visited[check] and mid <= weight:
                 visited[check] = True
@@ -44,6 +43,7 @@ while s <= e:
 
 print(answer)
 
+
 '''
 메모리 초과
 result = []
@@ -51,7 +51,6 @@ def dfs(node, end, min_count):
     if node == end:
         return result.append(min_count)
     for island, weight in relation[node]:
-        # print(f"island: {island} / weight: {weight}")
         if not visited[island]:
             visited[island] = True
             dfs(island, end, weight if weight < min_count else min_count)
