@@ -35,6 +35,7 @@ class Trie(object):
         result = ''
         for char in string:
             result += char
+            print(f"char {char} {now.children}")
             if char in now.children:
                 now = now.children[char]
             else:
@@ -43,7 +44,6 @@ class Trie(object):
             # dict의 초기값이 0부터 시작해서 1 더해줌
             result += str(same_nick[string] + 1)
         return result
-
 
 check = Trie()
 same_nick = defaultdict(int)
