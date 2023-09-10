@@ -20,17 +20,12 @@ def solution(k, room_number):
     answer = []
     room = {}
     for c_idx in room_number:
-        origin = c_idx
         visited = [c_idx]
-        # 이미 배정된 방인 경우
         while c_idx in room:
             c_idx = room[c_idx]
             visited.append(c_idx)
-            # 갱신된 c_idx가 여전히 방에 있는 경우, 계속 업데이트
-        # 배정 되지 않는 방인 경우
         answer.append(c_idx)
         for i in visited:
-            # 다음 빈 방을 dict에 넣음
             room[i] = c_idx+1
     return answer
 
