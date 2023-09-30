@@ -25,6 +25,7 @@ def dfs(node):
 visited[S] = True
 dfs(S)
 answer = 0
+print(depth)
 for i in range(1, N+1):
     if i != S and depth[i] >= D:
         answer += 1

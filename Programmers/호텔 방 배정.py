@@ -19,13 +19,23 @@ def no_efficiency(k, room_number):
 def solution(k, room_number):
     answer = []
     room = {}
+    # key: value
+    # 방번호 : 다음 최대 방번호
+    # 1: 2 / 3: 4 / 4: 5
     for c_idx in room_number:
         visited = [c_idx]
+        # visited = [1]
         while c_idx in room:
+            # c_idx = 1
             c_idx = room[c_idx]
+            # 30: c_idx = room[1] = 2
+            # c_idx = 2
             visited.append(c_idx)
+            # visited = [1,2]
         answer.append(c_idx)
         for i in visited:
+            # room[1] = 2 > 3
+            # room[2] = 3
             room[i] = c_idx+1
     return answer
 
