@@ -7,16 +7,6 @@ time = []
 for _ in range(N):
     time.append(list(map(int, sys.stdin.readline().rstrip().split(" "))))
 
-# INF = N * 10000
-# distance = [[INF for _ in range(N)] for _ in range(N)]
-#
-# for a in range(N):
-#     for b in range(N):
-#         if a !=b:
-#             distance[a][b] = time[a][b]
-#         else:
-#             distance[a][b] = 0
-
 for i in range(N):
     for j in range(N):
         for k in range(N):
