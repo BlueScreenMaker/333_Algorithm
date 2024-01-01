@@ -13,7 +13,7 @@ for i in range(N):
 def left(new_board):
     for i in range(N):
         point = 0
-        for j in range(1, N):
+        for j in range(N):
             if new_board[i][j] != 0:
                 tmp = new_board[i][j]
                 new_board[i][j] = 0
@@ -100,7 +100,7 @@ def dfs(n, temp_board):
     if n == 5:
         max_value = max(map(max, temp_board))
         answer = max(answer, max_value)
-        return
+        return answer
 
     for i in range(4):
         copy_board = copy.deepcopy(temp_board)

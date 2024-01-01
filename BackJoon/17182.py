@@ -27,6 +27,8 @@ def find_path(plant, count, total):
                 find_path(next, count+1, total+time[plant][next])
                 visited[next] = False
 
+    # return이 없으니 else문 이후에 이쪽으로 넘어오면 아무것도 없다~
+
 visited[K] = True
 find_path(K,1,0)
 print(answer)
