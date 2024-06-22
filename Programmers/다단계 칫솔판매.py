@@ -1,34 +1,36 @@
+def find(parents, money, seller_id, answer):
+    giving = money // 10
+    if parents[seller_id] == seller_id or giving == 0:
+        answer[seller_id] += money
+        return
+    mine = money - giving
+    answer[seller_id] += mine
+    find(parents, giving, parents[seller_id], answer)
+    return
+
 def solution(enroll, referral, seller, amount):
-    relationship = {}
-    answer = {}
+    N = len(enroll)
+    # 대장 포함
+    answer = [0 for _ in range(N+1)]
 
-    for i in range(len(enroll)):
-        answer[enroll[i]] = 0
+    p_info = {}
+    for i in range(N):
+        p_info[enroll[i]] = i+1
+
+    # 초기화: 스스로를 부모로
+    parents = [i for i in range(N+1)]
+    for i in range(N):
+        # 대장이 추천인인 경우
         if referral[i] == "-":
-            relationship[enroll[i]] = "center"
+            parents[i+1] = 0
+            # 0이 대장임
         else:
-            relationship[enroll[i]] = referral[i]
-    print(relationship)
-    for j in range(1):
-        name_of_seller = seller[j]
-        # num_of_product
-        num_of_product = amount[j] * 100
-        while True:
-            next_name = relationship[name_of_seller]
-            if next_name == "center":
-                break
-            else:
-                benefit = num_of_product * 0.1
-                answer[name_of_seller] += num_of_product - benefit
-                answer[next_name] += benefit
-                print("배분", answer)
-                name_of_seller = next_name
-                num_of_product = benefit
+            parents[i+1] = p_info[referral[i]]
 
+    for i in range(len(seller)):
+        find(parents, amount[i]*100, p_info[seller[i]], answer)
 
-    print(answer)
-
-    return answer
+    return answer[1:]
 
 print(solution(["john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"],
                ["-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"],
