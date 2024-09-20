@@ -1,3 +1,4 @@
+# Level 2
 def solution(name):
     # 조이스틱 조작 횟수
     answer = 0
