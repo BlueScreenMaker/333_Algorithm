@@ -8,7 +8,7 @@ def solution(board):
     length_col = len(board[0])
     start_x, start_y = 0, 0
     goal_x, goal_y = 0,0
-    count = [[int(10e9) for _ in range(length_col)] for _ in range(length_row)]
+    visited = [[ False for _ in range(length_col)] for _ in range(length_row)]
     for i in range(length_row):
         for j in range(length_col):
             if board[i][j] == "R":
@@ -20,68 +20,27 @@ def solution(board):
 
     que = deque()
     que.append((start_x, start_y, 0))
-    count[start_x][start_y] = 0
+    visited[start_x][start_y] = True
     while que:
         cx, cy, cnt = que.popleft()
         if cx == goal_x and cy == goal_y:
-            # print("\n".join(map(str, count)))
-            return count[goal_x][goal_y]
+            return cnt
         for i in range(4):
-            nx = cx + dx[i]
-            ny = cy + dy[i]
-            if 0 <= nx < length_row and 0 <= ny < length_col:
-                # 위로 올라가기
-                if i == 0:
-                    if board[nx][ny] == ".":
-                        for up in range(nx-1, -1, -1):
-                            if board[up][ny] == "D":
-                                temp = min(count[up+1][ny], cnt + 1)
-                                count[up+1][ny] = temp
-                                que.append((up+1, ny, temp))
-                                break
-                            elif up == 0 and board[0][ny] == ".":
-                                temp = min(count[0][ny], cnt + 1)
-                                count[0][ny] = temp
-                                que.append((0, ny, temp))
-                # 아래로 내려가기
-                elif i == 1:
-                    if board[nx][ny] == ".":
-                        for down in range(nx+1, length_row):
-                            if board[down][ny] == "D":
-                                temp = min(count[down-1][ny], cnt + 1)
-                                count[down-1][ny] = temp
-                                que.append((down-1, ny, temp))
-                                break
-                            elif down == length_row-1 and board[0][length_row-1] == ".":
-                                temp = min(count[down-1][ny], cnt + 1)
-                                count[down-1][ny] = temp
-                                que.append((length_row-1, ny, temp))
-                # 왼쪽
-                elif i == 2:
-                    if board[nx][ny] == ".":
-                        for left in range(ny-1, -1, -1):
-                            if board[nx][left] == "D":
-                                temp = min(count[nx][left+1], cnt + 1)
-                                count[nx][left+1] = temp
-                                que.append((nx, left+1, temp))
-                                break
-                            elif left == 0 and board[nx][0] == ".":
-                                temp = min(count[nx][0], cnt+1)
-                                count[nx][0] = temp
-                                que.append((nx, 0, temp))
-                #오른쪽
-                else:
-                    if board[nx][ny] == ".":
-                        for right in range(ny+1, length_col):
-                            if board[nx][right] == "D":
-                                temp = min(count[nx][right-1], cnt+1)
-                                count[nx][right-1] = temp
-                                que.append((nx, right-1, cnt))
-                                break
-                            elif right == length_col - 1 and board[nx][length_col-1] == ".":
-                                temp = min(count[nx][length_col-1], cnt+1)
-                                count[nx][length_col-1] = temp
-                                que.append((nx, length_col-1, cnt))
+            # cx, cy 기준으로 갈 수 있는 방향을 다 구해야함
+            nx = cx
+            ny = cy
+            # 한 방향으로 최대한 갈 수 있는 곳 까지 감
+            # 이 때, 그 방향의 값이 'D'가 아니여야함
+            while 0 <= nx+dx[i] < length_row and 0 <= ny+dy[i] < length_col and board[nx+dx[i]][ny+dy[i]] != "D":
+                # 최대한 갈 수 있을 때 까지 nx와 ny값 증가.
+                nx += dx[i]
+                ny += dy[i]
+            # 최종 도착 지점이 방문한 지점인가요?
+            if not visited[nx][ny]:
+                # 아니면 방문한 지점으로 체크해주고 넣어줌.
+                visited[nx][ny] = True
+                que.append((nx,ny,cnt+1))
+            # 방문한 지점이면 추가 하지 않음
 
     return -1
 
