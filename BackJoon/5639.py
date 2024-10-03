@@ -9,18 +9,23 @@ while True:
     except:
         break
 
-def check(start, end):
-    if start > end:
+def check(arr):
+    if len(arr) == 0:
         return
-    mid = end + 1
-    # 루트 노드보다 작은 노드밖에 없다면,
-    # 위의 if 조건에 따라 빠져나올 수 있도록 설정
-    for i in range(start+1, end):
-        if nodes[i] > nodes[start]:
-            mid = i
+    temp_l, temp_r = [], []
+    root = arr[0]
+    flag = False
+    for i in range(1, len(arr)):
+        if arr[i] > root:
+            temp_l = arr[1:i]
+            temp_r = arr[i:]
+            flag = True
             break
-    check(start, mid-1)
-    check(mid, end)
-    print(nodes[start])
+    if not flag:
+        temp_l = arr[1:]
 
-check(0, len(nodes))
+    check(temp_l)
+    check(temp_r)
+    print(root)
+
+check(nodes)
