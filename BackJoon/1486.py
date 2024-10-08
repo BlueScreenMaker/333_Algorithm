@@ -23,7 +23,6 @@ def Dijkstra(sx, sy):
 
     que = []
     heapq.heappush(que, [0, sx, sy])
-
     while que:
         c_time, cx, cy = heapq.heappop(que)
         # 현재 시간보다 더 최소의 값으로 배열이 갱신되어있기 때문에 굳이 계산을 할 필요 없음
