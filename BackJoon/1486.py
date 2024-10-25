@@ -34,7 +34,9 @@ def Dijkstra(sx, sy):
                 ny = cy + dy[i]
                 if 0 <= nx < N and 0 <= ny < M:
                     n_height = mountain[nx][ny]
+                    # 높이값이 T 이하인가?
                     if abs(c_height - n_height) <= T:
+                        # 현재 높이가 더 높아?
                         if c_height >= n_height:
                             n_time = c_time + 1
                         else:
