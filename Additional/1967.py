@@ -1,15 +1,40 @@
 import sys
+from collections import deque
 
 N = int(sys.stdin.readline())
-graph = [[int(1e9) for _ in range(N+1)] for _ in range(N+1)]
+
+graph = [[] for _ in range(N+1)]
 for i in range(N-1):
     a, b, c = map(int, sys.stdin.readline().split(" "))
-    graph[a][b] = c
-    graph[b][a] = c
+    graph[a].append([b,c])
+    graph[b].append([a,c])
 
-for k in range(N):
-    for i in range(N):
-        for j in range(N):
-            graph[i][j] = min(graph[i][j],graph[i][k] + graph[k][j])
+def bfs(start):
+    visited = [False] * (N+1)
+    que = deque()
+    que.append([start,0])
 
-print("\n".join(map(str, graph)))
+    more_far_node = start
+    max_dist = 0
+
+    visited[start] = True
+
+    while que:
+        c_node, c_dist = que.popleft()
+        for next, weight in graph[c_node]:
+            if not visited[next]:
+                visited[next] = True
+                next_dist = c_dist + weight
+                que.append([next, next_dist])
+                if next_dist > max_dist:
+                    max_dist = next_dist
+                    more_far_node = next
+
+    return max_dist, more_far_node
+
+# 첫번째 노드에서 가장 먼 노드 찾기 == 끝점
+_, next_node = bfs(1)
+
+# 끝점에서 가장 먼 노드 찾기
+tree_dist, _ = bfs(next_node)
+print(tree_dist)
