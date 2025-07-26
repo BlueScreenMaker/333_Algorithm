@@ -1,4 +1,6 @@
- def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
+from typing import List
+
+def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
         result = []
         line_word = []
         # 알파벳 수

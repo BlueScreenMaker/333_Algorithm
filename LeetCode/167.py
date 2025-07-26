@@ -1,6 +1,5 @@
 from typing import List
 
-
 def twoSum(numbers: List[int], target: int) -> List[int]:
         start, end = 0, len(numbers)
         increase = True
